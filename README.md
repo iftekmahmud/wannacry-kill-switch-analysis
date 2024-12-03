@@ -78,11 +78,23 @@ WannaCry uses a **hybrid encryption model** to lock files:
 
 This dual-layer encryption ensures victims cannot decrypt their files without paying the ransom.
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/3afa9259-965c-40d8-9710-f000a9835587" alt="Ransom note left on an infected system" width="600">
+  <p style="font-style: italic;">Ransom note left on an infected system</p>
+</div>
+
+To ensure the user notices the warning, the malware typically changes the desktop wallpaper, providing instructions on locating the decryptor tool it has delivered.
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/f9be42db-a2a2-467d-a43e-d984f6276977" alt="Replaced wallpaper by the malware" width="600">
+  <p style="font-style: italic;">Replaced wallpaper by the malware</p>
+</div>
+
 ----
 
 ## The Role of the Kill Switch
 
-One of WannaCry’s most fascinating features was its **kill switch**, a security measure possibly added to allow the attackers to terminate the operation if needed. Before encrypting files or propagating, WannaCry attempted to connect to a predefined domain name. If the domain was active, the malware halted its execution.
+One of WannaCry’s most fascinating features was its **kill switch**, a security measure possibly added to allow the attackers to terminate the operation if needed. Before encrypting files or propagating, WannaCry attempted to connect to a predefined domain name `iuqerfsodp9ifjaposdfjhgosurijfaewrwergwea.com`. If the domain was active, the malware halted its execution.
 
 Marcus Hutchins, a reverse engineer, discovered this functionality while analyzing the ransomware’s binary in a sandbox. He registered the unclaimed domain for $10, effectively activating the kill switch and stopping WannaCry’s spread globally.
 
@@ -92,7 +104,7 @@ Here’s how the kill switch might have been implemented:
 import requests
 
 def wannacry_execution():
-    kill_switch_url = "http://unregistered-killswitch-domain.com"
+    kill_switch_url = "http://iuqerfsodp9ifjaposdfjhgosurijfaewrwergwea.com"
     try:
         response = requests.get(kill_switch_url, timeout=5)
         if response.status_code == 200:
